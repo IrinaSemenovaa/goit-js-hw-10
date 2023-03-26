@@ -18,13 +18,14 @@ refs.searchForm.addEventListener(
 
 function handleSearch(e) {
   e.preventDefault();
+  clearMarkup();
 
   const name = refs.searchForm.value.trim();
-
+  if (name === '') {
+    return;
+  }
   fetchCountries(name)
     .then(countries => {
-      refs.countryBox.innerHTML = '';
-      refs.countryList.innerHTML = '';
       if (countries.length === 1) {
         refs.countryList.insertAdjacentHTML(
           'beforeend',
@@ -76,6 +77,11 @@ function renderCountryBox(countries) {
     })
     .join('');
   return markup;
+}
+
+function clearMarkup() {
+  refs.countryBox.innerHTML = '';
+  refs.countryList.innerHTML = '';
 }
 
 function warnAboutSpecificity() {
